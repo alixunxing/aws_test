@@ -4,7 +4,15 @@ import torch.optim as optim
 import torch.nn.functional as F
 from torchvision import datasets, transforms
 from torch.utils.data import DataLoader
+import os
 
+max_epoch = os.environ.get('SM_MAX_EPOCH')
+print("max_epoch:", max_epoch)
+train_data_path = os.environ.get('SM_CHANNEL_TRAIN')
+validation_data_path = os.environ.get('SM_CHANNEL_VALIDATION')
+
+print(f'Train data path: {train_data_path}')
+print(f'Validation data path: {validation_data_path}')
 # 数据预处理
 transform = transforms.Compose([
     transforms.ToTensor(),
