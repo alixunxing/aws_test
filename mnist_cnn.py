@@ -20,8 +20,8 @@ transform = transforms.Compose([
 ])
 
 # 加载 MNIST 数据集
-train_dataset = datasets.MNIST(root='./data', train=True, transform=transform, download=False)
-test_dataset = datasets.MNIST(root='./data', train=False, transform=transform, download=False)
+train_dataset = datasets.MNIST(root='/app/data', train=True, transform=transform, download=False)
+test_dataset = datasets.MNIST(root='/app/data', train=False, transform=transform, download=False)
 
 train_loader = DataLoader(dataset=train_dataset, batch_size=64, shuffle=True)
 test_loader = DataLoader(dataset=test_dataset, batch_size=1000, shuffle=False)
