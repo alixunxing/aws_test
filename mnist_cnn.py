@@ -90,6 +90,12 @@ def test(model, device, test_loader, best_acc):
 
 if __name__=="__main__":
     best_acc = -1
+    model_output_dir = '/opt/ml/model'
+    output_data_dir = '/opt/ml/output/data'
+
+    with open(os.path.join(output_data_dir, "test.txt"), "w") as fout:
+        import time
+        fout.write(str(time.time()))
 
     # 设置训练设备
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -102,6 +108,6 @@ if __name__=="__main__":
         acc = test(model, device, test_loader, best_acc)
         if acc > best_acc:
             best_acc = acc
-            torch.save(model, "weights/best.pth")
+            torch.save(model, os.path.join(model_output_dir, "best.pth"))
             print("epoch:", epoch, ": best acc:", best_acc)
             print("New best model saved!")
