@@ -14,4 +14,4 @@ WORKDIR /app
 
 RUN pip install --no-cache-dir -r requirements.txt
 
-CMD python mnist_cnn.py
+ENTRYPOINT python mnist_cnn.py
