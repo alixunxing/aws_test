@@ -11,8 +11,7 @@ import json
 with open('/opt/ml/input/config/hyperparameters.json', 'r') as f:
     hyperparameters = json.load(f)
 
-num_layers = hyperparameters.get('num_layers', 1)
-print(f"num_layers: {num_layers}")
+print(hyperparameters)
 
 train_data_path = os.environ.get('SM_CHANNEL_TRAIN')
 validation_data_path = os.environ.get('SM_CHANNEL_VALIDATION')
