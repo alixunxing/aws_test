@@ -6,8 +6,14 @@ from torchvision import datasets, transforms
 from torch.utils.data import DataLoader
 import os
 
-max_epoch = os.environ.get('SM_MAX_EPOCH')
-print("max_epoch:", max_epoch)
+import json
+
+with open('/opt/ml/input/config/hyperparameters.json', 'r') as f:
+    hyperparameters = json.load(f)
+
+num_layers = hyperparameters.get('num_layers', 1)
+print(f"num_layers: {num_layers}")
+
 train_data_path = os.environ.get('SM_CHANNEL_TRAIN')
 validation_data_path = os.environ.get('SM_CHANNEL_VALIDATION')
 
