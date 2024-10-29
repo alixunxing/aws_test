@@ -7,7 +7,7 @@ RUN apt-get -y install python3-dev
 RUN pip install --upgrade pip setuptools
 
 RUN mkdir /app
-COPY ./data /app
+COPY ./data /app/data
 COPY ./mnist_cnn.py /app
 COPY ./requirements.txt /app
 WORKDIR /app

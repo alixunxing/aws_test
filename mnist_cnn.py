@@ -4,7 +4,7 @@ import torch.optim as optim
 import torch.nn.functional as F
 from torchvision import datasets, transforms
 from torch.utils.data import DataLoader
-import os
+import os, glob
 
 import json
 
@@ -13,11 +13,13 @@ with open('/opt/ml/input/config/hyperparameters.json', 'r') as f:
 
 print(hyperparameters)
 
-train_data_path = os.environ.get('SM_CHANNEL_TRAIN')
-validation_data_path = os.environ.get('SM_CHANNEL_VALIDATION')
+train_data_path = os.path.join("/opt/ml/input/data/", "train")
+validation_data_path = os.path.join("/opt/ml/input/data/", "validation")
 
-print(f'Train data path: {train_data_path}')
-print(f'Validation data path: {validation_data_path}')
+train_data_list = glob.glob(os.path.join(train_data_path, "ubyte"))
+print(f'Train data path: {train_data_list}')
+validation_data_list = glob.glob(os.path.join(validation_data_path, "ubyte"))
+print(f'Validation data path: {validation_data_list}')
 # 数据预处理
 transform = transforms.Compose([
     transforms.ToTensor(),
@@ -25,8 +27,8 @@ transform = transforms.Compose([
 ])
 
 # 加载 MNIST 数据集
-train_dataset = datasets.MNIST(root='/app/data', train=True, transform=transform, download=False)
-test_dataset = datasets.MNIST(root='/app/data', train=False, transform=transform, download=False)
+train_dataset = datasets.MNIST(root='./data', train=True, transform=transform, download=False)
+test_dataset = datasets.MNIST(root='./data', train=False, transform=transform, download=False)
 
 train_loader = DataLoader(dataset=train_dataset, batch_size=64, shuffle=True)
 test_loader = DataLoader(dataset=test_dataset, batch_size=1000, shuffle=False)
